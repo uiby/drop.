@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
 		StageManager.nextStage = (GameObject)Resources.Load("Stages/ana");
 		StageManager.CreateState1_1();
    	GameObject.Find("MainCamera").GetComponent<CameraPosition>().DownPos();
-   	mainCanvas.ShowStageCount();
+   	mainCanvas.SlideStageWord();
    	GameObject.Find("MainCanvas/TimeGauge").GetComponent<TimeCountDown>().ShowTime();
    	mainCanvas.ShowScore();
   }
@@ -41,8 +41,4 @@ public class GameManager : MonoBehaviour {
    	mainCanvas.RenewStageCount();
    	mainCanvas.ShowStageClearText();
 	}
-
-	//public static string GetState() {
-	//	return state;
-	//}
 }

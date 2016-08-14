@@ -6,10 +6,12 @@ public class MainCanvas : MonoBehaviour {
 	protected Text stageCount;
 	private GameObject stageClearText;
 	protected Text score;
+	private SlideStageWord slideStageWord;
 	void Start () {
 	  stageCount = GameObject.Find("MainCanvas/Stage").GetComponent<Text>();
 	  stageClearText = (GameObject)Resources.Load("UIs/StageResult");
 	  score = this.transform.FindChild("ScoreName/Score").gameObject.GetComponent<Text>();
+	  slideStageWord = this.transform.FindChild("Stage").gameObject.GetComponent<SlideStageWord>();
 	  
 	  HideUI();
 	}
@@ -20,14 +22,13 @@ public class MainCanvas : MonoBehaviour {
 
   //メインゲームの時に使うUIを非表示
 	public void HideUI() {
-		stageCount.enabled = false;
 		score.enabled = false;
 		this.transform.FindChild("ScoreName").gameObject.GetComponent<Text>().enabled = false;
 	}
 
   //ステージ名の表示
-	public void ShowStageCount() {
-		stageCount.enabled = true;
+	public void SlideStageWord() {
+		slideStageWord.Begin();
 	}
 	//スコアの表示
 	public void ShowScore() {
@@ -39,6 +40,7 @@ public class MainCanvas : MonoBehaviour {
 		int stage = StageManager.stageCount % 5 + 1;
 		int setCount = StageManager.stageCount / 5 + 1;
 		stageCount.text = "Stage"+ setCount +"-"+stage;
+		SlideStageWord();
 	}
 
 	public void ShowStageClearText() {
