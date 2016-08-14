@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StageClear : MonoBehaviour {
+public class FristStage : MonoBehaviour {
 	private GameObject stageClearEffect;
 	void Start () {
 		stageClearEffect = (GameObject)Resources.Load("Stages/StageClearEffect");
@@ -9,13 +9,15 @@ public class StageClear : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col) {
 		if (col.gameObject.tag == "Player") {
-   		  //ステージクリア時
-				Debug.Log("Clear:"+ StageManager.stageCount);
-				GameObject.Find("GameManager").GetComponent<GameManager>().StageClear();   		  
+   		  //最初のステージクリア時
+				Debug.Log("Clear:"+ StageManager.stageCount + "GAME START");
+				GameObject.Find("GameManager").GetComponent<GameManager>().FristStageClear();   		  
    		  this.transform.parent.gameObject.GetComponent<ManipulateFloor>().enabled = false;
 
    		  Instantiate(stageClearEffect, this.transform.parent.gameObject.transform.position, Quaternion.identity);
    	    //transform.parent.gameObject.GetComponent<ManipulateFloor>().enabled = false;
+
+   	    GameManager.state = GameManager.GameState.GAMEMAIN;
    	}
 	}
 }
