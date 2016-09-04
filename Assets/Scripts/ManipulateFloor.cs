@@ -5,20 +5,16 @@ using Leap;
 
 //床をLeapで操作する
 public class ManipulateFloor : MonoBehaviour {
-	Controller controller = new Controller();
 	
 	void Start () {
 	}
 	
 	void Update () {
-	  Frame frame = controller.Frame();
-
-	  InteractionBox interactionBox = frame.InteractionBox;
+	  //InteractionBox interactionBox = frame.InteractionBox;
 
 	  //手の検出
-	  HandList hands = frame.Hands;
-	  Hand leftHand = frame.Hands.Leftmost;//左手
-		Hand rightHand = frame.Hands.Rightmost;//右手
+	  Hand leftHand = LeapUtil.GetLeftHand();//左手
+		Hand rightHand = LeapUtil.GetRightHand();//右手
 
 	  if (leftHand.IsValid && rightHand.IsValid) {
 	  	Vector distance =  rightHand.PalmPosition - leftHand.PalmPosition;//両手の距離をベクトル

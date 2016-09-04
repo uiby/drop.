@@ -65,7 +65,10 @@ public class SlideStageWord : MonoBehaviour {
 	//タイマー
 	float _timer = 0;
 
+	private GameObject particle;
+
 	void Start() {
+		particle = this.transform.FindChild("Particle").gameObject;
 		//画面外に出しておく
 		X = CENTER_X + OFFSET_X;
 		//非表示にしておく
@@ -90,6 +93,7 @@ public class SlideStageWord : MonoBehaviour {
 					//20フレーム停止する
 					_timer = 20;
 					_state = eState.Wait;
+					SetParticle();
 				}
 				break;
 			case eState.Wait:
@@ -112,5 +116,15 @@ public class SlideStageWord : MonoBehaviour {
 			case eState.End:
 				break;
 		}
+	}
+
+	private void SetParticle() {
+		//GameObject particle = (GameObject)Instantiate(particleObj);
+		Vector2 pos = this.GetComponent<RectTransform>().anchoredPosition;
+		Vector3 pos3 = Camera.main.ScreenToWorldPoint(new Vector2(pos.x + Screen.width/2, pos.y + Screen.height/2));
+		pos3.z = 0;
+		particle.transform.position = pos3;
+		particle.GetComponent<ParticleSystem>().Play();
+		particle.GetComponent<Particle>().SetPos(new Vector2(pos.x + Screen.width/2, pos.y + Screen.height/2));
 	}
 }

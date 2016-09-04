@@ -5,16 +5,27 @@ using System.Collections;
 //ステージをクリアした際の結果の表示
 //EXCELLENT > GREAT > NICE の順で評価する
 public class StageResult : MonoBehaviour {
+	private int frame;
 
-	void Awake() {
+	// Use this for initialization
+	void Start () {
 		this.transform.SetParent(GameObject.Find("MainCanvas").transform);
 		this.GetComponent<Text>().enabled = false;
 		SetResultWord();
 	  SetFristPos();
 	  this.GetComponent<Text>().enabled = true;
+	  this.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+	  frame = 20;
 	}
-	// Use this for initialization
-	void Start () {
+
+	void Update() {
+		frame--;
+		if (frame >= 13) {
+  		Scale(0.1f);
+	 	}
+		if (frame == 0) {
+			DestroyObj();
+		}
 	}
 
   //ステージクリア結果を文字に格納
@@ -39,5 +50,9 @@ public class StageResult : MonoBehaviour {
   //削除
 	private void DestroyObj() {
 		Destroy(this.gameObject);
+	}
+
+	private void Scale(float value) {
+		this.transform.localScale += new Vector3(value, value, value);
 	}
 }

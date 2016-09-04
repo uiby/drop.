@@ -17,7 +17,7 @@ public class FristStage : MonoBehaviour {
    		  Instantiate(stageClearEffect, this.transform.parent.gameObject.transform.position, Quaternion.identity);
    	    //transform.parent.gameObject.GetComponent<ManipulateFloor>().enabled = false;
 
-   	    GameManager.state = GameManager.GameState.GAMEMAIN;
+   	    GameManager.state = GameManager.GameState.GameMain;
    	}
 	}
 }
