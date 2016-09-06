@@ -5,7 +5,7 @@ using Leap;
 
 //床をLeapで操作する
 public class ManipulateFloor : MonoBehaviour {
-	
+	private int rollY;
 	void Start () {
 	}
 	
@@ -22,11 +22,16 @@ public class ManipulateFloor : MonoBehaviour {
 		  distance.y /= (float)5.0;
 		  if (distance.y <= -30)	distance.y = -30;
 		  if (distance.y >= 30) distance.y = 30;
+
+		  //leap motion の座標軸を unityの座標軸に変換
 		  distance.z = distance.y;
 		  distance.y = 0;
 		  distance.x = directionY;
+
 		  //Debug.Log(ToVector3(distance));
-		  Vector3 rotate = Camera.main.transform.TransformDirection(ToVector3(distance));
+		  Vector3 rotate = Camera.main.transform.TransformDirection(ToVector3(distance)); //カメラから見たベクトルに変換
+		  //rotate.y = rollY;
+		  //Debug.Log(rotate +" : "+ rollY);
 		  this.transform.rotation = Quaternion.Euler(rotate);
 		}
 	  
@@ -34,5 +39,8 @@ public class ManipulateFloor : MonoBehaviour {
 	private Vector3 ToVector3(Vector v)//座標の変換
 	{
 		return new UnityEngine.Vector3(v.x, v.y, v.z);
+	}
+	public void SetRollY(int y) {
+		rollY = y;
 	}
 }

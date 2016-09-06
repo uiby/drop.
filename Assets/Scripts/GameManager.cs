@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
   	state = GameState.GameFirst;
   	mainCanvas = GameObject.Find("MainCanvas").GetComponent<MainCanvas>();
     backGround = GameObject.Find("MainCamera").GetComponent<BackGround>();
-  	StageManager.nowStage = GameObject.Find("ana");
+  	StageManager.nowStage = GameObject.Find("stage_ver0.2");
   	StageManager.stageCount = 0;
 	}
 	
@@ -29,19 +29,18 @@ public class GameManager : MonoBehaviour {
 
 	//ゲームがスタートする前のステージをクリアーした時の処理
 	public void FristStageClear() {
-		StageManager.nextStage = (GameObject)Resources.Load("Stages/ana");
+		StageManager.nextStage = (GameObject)Resources.Load("Stages/stage_ver0.2");
 		StageManager.CreateState1_1();
    	GameObject.Find("MainCamera").GetComponent<MainCamera>().DownPos();
-   	mainCanvas.SlideStageWord();
    	GameObject.Find("MainCanvas/TimeGauge").GetComponent<TimeCountDown>().ShowTime();
    	mainCanvas.ShowScore();
   }
 
 	public void StageClear() {
-		StageManager.nextStage = (GameObject)Resources.Load("Stages/ana");
+		StageManager.nextStage = (GameObject)Resources.Load("Stages/stage_ver0.2");
 		StageManager.CreateNextStage();
    	GameObject.Find("MainCamera").GetComponent<MainCamera>().DownPos();
-   	mainCanvas.RenewStageCount();
+   	mainCanvas.ChangeStageWord();
    	mainCanvas.ShowStageClearText();
     backGround.ChangeColor(new Color(Random.value, Random.value, Random.value, 1.0f));
 	}

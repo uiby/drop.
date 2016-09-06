@@ -2,6 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 
+//タイトル画面の文章の処理
+//何もない時は拡大縮小
+//文章が変わる時は1回点滅
 public class Sentence : MonoBehaviour {
 	private Text text;
 	private string sentence; //次の文

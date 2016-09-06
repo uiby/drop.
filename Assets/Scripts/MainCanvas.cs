@@ -6,12 +6,12 @@ public class MainCanvas : MonoBehaviour {
 	protected Text stageCount;
 	private GameObject stageClearText;
 	protected Text score;
-	private SlideStageWord slideStageWord;
+	private StageWord stageWord;
 	void Start () {
-	  stageCount = GameObject.Find("MainCanvas/Stage").GetComponent<Text>();
+	  stageCount = GameObject.Find("MainCanvas/StageWord").GetComponent<Text>();
 	  stageClearText = (GameObject)Resources.Load("UIs/StageResult");
 	  score = this.transform.FindChild("ScoreName/Score").gameObject.GetComponent<Text>();
-	  slideStageWord = this.transform.FindChild("Stage").gameObject.GetComponent<SlideStageWord>();
+	  stageWord = this.transform.FindChild("StageWord").gameObject.GetComponent<StageWord>();
 	  
 	  HideUI();
 	}
@@ -23,24 +23,19 @@ public class MainCanvas : MonoBehaviour {
   //メインゲームの時に使うUIを非表示
 	public void HideUI() {
 		score.enabled = false;
+		stageCount.enabled = false;
 		this.transform.FindChild("ScoreName").gameObject.GetComponent<Text>().enabled = false;
 	}
 
   //ステージ名の表示
-	public void SlideStageWord() {
-		slideStageWord.Begin();
+	public void ChangeStageWord() {
+		stageWord.ChangeStage();
 	}
 	//スコアの表示
 	public void ShowScore() {
 	  this.transform.FindChild("ScoreName").gameObject.GetComponent<Text>().enabled = true;
 		score.enabled = true;
-	}
-
-	public void RenewStageCount() {
-		int stage = StageManager.stageCount % 5 + 1;
-		int setCount = StageManager.stageCount / 5 + 1;
-		stageCount.text = "Stage"+ setCount +"-"+stage;
-		SlideStageWord();
+		stageCount.enabled = true;
 	}
 
 	public void ShowStageClearText() {

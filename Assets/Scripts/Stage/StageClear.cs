@@ -13,6 +13,7 @@ public class StageClear : MonoBehaviour {
 				Debug.Log("Clear:"+ StageManager.stageCount);
 				GameObject.Find("GameManager").GetComponent<GameManager>().StageClear();   		  
    		  this.transform.parent.gameObject.GetComponent<ManipulateFloor>().enabled = false;
+   		  col.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
    		  Instantiate(stageClearEffect, this.transform.parent.gameObject.transform.position, Quaternion.identity);
    	    //transform.parent.gameObject.GetComponent<ManipulateFloor>().enabled = false;

@@ -3,11 +3,13 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 //タイトル画面の処理
+//Enterキーを押す or 文章に従う とMainシーンに移行
 public class TitleManager : MonoBehaviour {
 	private GameObject boll;
 	private Sentence sentence;
 	public GameObject createObj;
 	private ParticleSystem particleSystem;
+	private float timer;
 
 	public enum titleState {
     None,   //何もしないとき
@@ -18,6 +20,7 @@ public class TitleManager : MonoBehaviour {
   public titleState state;
 
 	void Start () {
+		timer = 0;
 	  state = titleState.None;
 	  sentence = GameObject.Find("TitleCanvas/Sentence").GetComponent<Sentence>();	
 	  particleSystem = GameObject.Find("CreateBollEffect").GetComponent<ParticleSystem>();
@@ -58,6 +61,10 @@ public class TitleManager : MonoBehaviour {
         }
       break;
       case titleState.Hand03 : 
+        timer += Time.deltaTime;
+        if (timer >= 1.25f) {
+        	ChangeMainScene();
+        }
       break;
 		}
 	}
@@ -111,7 +118,7 @@ public class TitleManager : MonoBehaviour {
   //メインゲームシーンに移行
 	private void ChangeMainScene() {
 		ScreenFadeManager fadeManager = ScreenFadeManager.Instance;
-		fadeManager.FadeOut(1.0f, Color.white, ()=> {// フェードイン
+		fadeManager.FadeOut(0.5f, Color.white, ()=> {// フェードイン
 		  SceneManager.LoadScene ("Main");
 		});
 	}

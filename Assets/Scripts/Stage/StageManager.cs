@@ -29,7 +29,7 @@ public class StageManager : MonoBehaviour {
 		obj.name = "Stage";
 		obj.transform.SetParent(GameObject.Find("Stages").transform);
 		obj.transform.Rotate(-2,0,0);
-
+		RandomRoll(obj);
 		//prevStageとnextStageの更新
 		StageManager.ChangeStage(obj);
 	}
@@ -49,6 +49,11 @@ public class StageManager : MonoBehaviour {
 	}
 
 	public static void SelectStage() {
-		;
+	}
+
+	private static void RandomRoll(GameObject obj) {
+		int y = Random.Range(0, 360);
+		obj.GetComponent<ManipulateFloor>().SetRollY(y);
+		obj.transform.Rotate(0, y, 0);
 	}
 }
