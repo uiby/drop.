@@ -11,14 +11,15 @@ public class Particle : MonoBehaviour {
 	}
 	
 	void Update () {
-		if(pos == Vector2.zero) return ;
+		/*if(pos == Vector2.zero) return ;
 		Vector3 pos3 = Camera.main.ScreenToWorldPoint(pos);
 		Debug.Log(pos3 +" : "+ pos);
 	  pos3.z = 0;
 		this.transform.position = pos3;
-		if (particle.isStopped)  pos = Vector2.zero;
+		if (particle.isStopped)  pos = Vector2.zero;*/
 	}
 
+  //スクリーン座標を保存
 	public void SetPos(Vector2 pos2) {
 		pos = pos2;
 	}

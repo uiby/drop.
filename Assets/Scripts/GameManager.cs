@@ -5,13 +5,14 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
   private MainCanvas mainCanvas;
   private BackGround backGround;
-  
+  private int explainOrder;//説明命令順番
+
   public enum GameState : int
   {
-    Title = 1,  //タイトル画面
-    GameFirst = 2, //ゲーム初期画面
-    GameMain = 3,  //メインゲーム画面
-    Finish = 4  //ゲーム終了画面
+    GameFirst = 1, //ゲーム初期画面
+    GameMain,  //メインゲーム画面
+    Finish,  //ゲーム終了画面
+    GameClear //ゲームクリア―
   }
   public static GameState state;
   
@@ -21,27 +22,74 @@ public class GameManager : MonoBehaviour {
     backGround = GameObject.Find("MainCamera").GetComponent<BackGround>();
   	StageManager.nowStage = GameObject.Find("stage_ver0.2");
   	StageManager.stageCount = 0;
+    StageManager.SetMaxStageCount(5);
+    GameObject.Find("MainCanvas/StageText").GetComponent<StageWord>().RenewStageCount();
+
+    //説明文の処理
+    explainOrder = 1;
+    Timer.StartTime();
 	}
 	
 	void Update () {
+    switch (state) {
+      case GameState.GameFirst:
+        if (explainOrder == 1 && Timer.GetCurrentTime() > 3.0f) { //3.0秒経ったら
+          mainCanvas.SetMassage("<color=red>両手</color>で床を動かして、\n<color=red>魂</color>を移動させます.");
+          explainOrder++;
+          Timer.ReStart();
+        } else if (explainOrder == 2 && Timer.GetCurrentTime() > 3.0f) { //3.0秒経ったら
+          mainCanvas.SetMassage("場外に落ちると<color=red>ゲームオーバー</color>です.");
+          explainOrder++;
+          Timer.ReStart();
+        } else if (explainOrder == 3 && Timer.GetCurrentTime() > 3.0f) { //3.0秒経ったら
+          mainCanvas.SetMassage("途中でこのような<color=red>アイテム</color>があります.\n慣れて来たら取りに行くと<color=red>いい事</color>があるかも?");
+          explainOrder++;
+          Timer.ReStart();
+          GameObject.Find("stage_ver0.2/VitalityItem").GetComponent<Collider>().enabled = true;
+          GameObject.Find("stage_ver0.2/VitalityItem").GetComponent<Renderer>().enabled = true;
+        } else if (explainOrder == 4 && Timer.GetCurrentTime() > 3.0f) { //3.0秒経ったら
+          mainCanvas.SetMassage("最後まで穴に入れると<color=red>ゲームクリア―</color>です.\n穴に<color=red>素早く</color>入れましょう.");
+          explainOrder++;
+          Timer.ReStart();
+        } else if (explainOrder == 5 && Timer.GetCurrentTime() > 3.0f) { //3.0秒経ったら
+          mainCanvas.SetMassage("では楽しんでいってください!\n穴に入れるとゲームスタートです.");
+          explainOrder++;
+          Timer.FinishTime();
+        }
+      break;
+    }
 	
 	}
 
 	//ゲームがスタートする前のステージをクリアーした時の処理
+  //必要なUIを表示する
 	public void FristStageClear() {
 		StageManager.nextStage = (GameObject)Resources.Load("Stages/stage_ver0.2");
-		StageManager.CreateState1_1();
+		StageManager.CreateFirstStage();
    	GameObject.Find("MainCamera").GetComponent<MainCamera>().DownPos();
-   	GameObject.Find("MainCanvas/TimeGauge").GetComponent<TimeCountDown>().ShowTime();
-   	mainCanvas.ShowScore();
+   	GameObject.Find("MainCanvas/VitalityGauge").GetComponent<VitalityGauge>().ShowTime();
+    mainCanvas.ShowUI();
+    Timer.StartTime();
+
+    mainCanvas.DestroyMassage(); //説明文の消去
   }
 
 	public void StageClear() {
-		StageManager.nextStage = (GameObject)Resources.Load("Stages/stage_ver0.2");
+    StageManager.IncreaseStageCount();
+    Timer.ShowLogNowTime(); //ステージクリアにかかった時間をログに表示
+    Timer.FinishTime(); //タイマーのリセット
+    if (StageManager.stageCount == StageManager.GetMaxStageCount()) {
+      state = GameState.GameClear;
+      GameClear();
+    }
+		StageManager.nextStage = StageManager.SelectStage();
 		StageManager.CreateNextStage();
    	GameObject.Find("MainCamera").GetComponent<MainCamera>().DownPos();
    	mainCanvas.ChangeStageWord();
-   	mainCanvas.ShowStageClearText();
-    backGround.ChangeColor(new Color(Random.value, Random.value, Random.value, 1.0f));
+   	backGround.ChangeColor(new Color(Random.value, Random.value, Random.value, 1.0f));
 	}
+
+  public void GameClear() {
+    Debug.Log("GameClear");
+  }
 }

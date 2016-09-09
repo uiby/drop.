@@ -10,13 +10,20 @@ public class StageClear : MonoBehaviour {
 	void OnTriggerEnter(Collider col) {
 		if (col.gameObject.tag == "Player") {
    		  //ステージクリア時
-				Debug.Log("Clear:"+ StageManager.stageCount);
+				//Debug.Log("Clear:"+ StageManager.stageCount);
 				GameObject.Find("GameManager").GetComponent<GameManager>().StageClear();   		  
-   		  this.transform.parent.gameObject.GetComponent<ManipulateFloor>().enabled = false;
+   		  this.GetComponent<ManipulateFloor>().enabled = false;
    		  col.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
-   		  Instantiate(stageClearEffect, this.transform.parent.gameObject.transform.position, Quaternion.identity);
-   	    //transform.parent.gameObject.GetComponent<ManipulateFloor>().enabled = false;
+   		  Instantiate(stageClearEffect, this.transform.position, Quaternion.identity);//ステージクリアのエフェクトの生成
+
+        //クリア時の評価を決める
+        StageResult.StageResultInfo result = StageResult.GetStageResult(this.name);
+
+   		  GameObject word = (GameObject)Instantiate(MainCanvas.stageClearText); //ステージクリアの評価テキストの生成
+   		  word.GetComponent<StageResultWord>().SetResultWord(result);
+
+   		  ScoreManager.AddScore(result); //スコア追加
    	}
 	}
 }

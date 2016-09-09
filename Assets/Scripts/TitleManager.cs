@@ -27,7 +27,7 @@ public class TitleManager : MonoBehaviour {
 	}
 	
 	void Update () {
-    if (KeyControllor.IsEnter()) ChangeMainScene();
+    if (KeyUtil.IsDownEnter()) ChangeMainScene();
 		switch (state) {
       case titleState.None : 
         if (IsStandby()) {

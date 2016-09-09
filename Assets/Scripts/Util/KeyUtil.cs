@@ -2,26 +2,26 @@
 using System.Collections;
 
 //キーボードの処理
-public class KeyControllor : MonoBehaviour {
+public class KeyUtil : MonoBehaviour {
 	
-	public static bool IsEnter(){//Enter
+	public static bool IsDownEnter(){//Enter
 		return Input.GetKeyDown(KeyCode.Return);
 	}
 
-	public static bool IsUpArrow() {
+	public static bool IsDownUpArrow() {
 		return Input.GetKeyDown(KeyCode.UpArrow);
 	}
-	public static bool IsDownArrow() {
+	public static bool IsDownDownArrow() {
 		return Input.GetKeyDown(KeyCode.DownArrow);
 	}
-	public static bool IsRightArrow() {
+	public static bool IsDownRightArrow() {
 		return Input.GetKeyDown(KeyCode.RightArrow);
 	}
-	public static bool IsLeftArrow() {
+	public static bool IsDownLeftArrow() {
 		return Input.GetKeyDown(KeyCode.LeftArrow);
 	}
 
-	public static bool IsEsc() {
+	public static bool IsDownEsc() {
 		return Input.GetKeyDown(KeyCode.Escape);
 	}
 }

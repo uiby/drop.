@@ -2,7 +2,7 @@
 using System.Collections;
 
 //自機の処理
-public class Playr : MonoBehaviour {
+public class Player : MonoBehaviour {
 	public float maxSpeed = 30.0f;
 	private Rigidbody myRigidbody;
 
@@ -20,5 +20,11 @@ public class Playr : MonoBehaviour {
     if (myRigidbody.velocity.magnitude > maxSpeed) {
       myRigidbody.velocity = Vector3.ClampMagnitude (myRigidbody.velocity, maxSpeed);
     }
+  }
+
+  void OnCollisionEnter(Collision coll) {
+  	if (coll.gameObject.tag == "Stage") {
+  		Timer.StartTime();
+  	}
   }
 }

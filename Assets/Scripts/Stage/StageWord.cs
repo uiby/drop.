@@ -7,6 +7,7 @@ public class StageWord : MonoBehaviour {
 	private GameObject particle;
 	private float timer;
 	private float maxTime;
+	public GameObject stageCount;
 	
 	public enum eState {
     None,   //何もしないとき
@@ -48,9 +49,8 @@ public class StageWord : MonoBehaviour {
 	}
 
 	public void RenewStageCount() {
-		int stage = StageManager.stageCount % 5 + 1;
-		int setCount = StageManager.stageCount / 5 + 1;
-		this.GetComponent<Text>().text = "Stage"+ setCount +"-"+stage;
+		int value = StageManager.GetMaxStageCount() - StageManager.stageCount;
+		stageCount.GetComponent<Text>().text = ""+ value;
 	}
 	
 	private void SetParticle() {
@@ -65,6 +65,6 @@ public class StageWord : MonoBehaviour {
 
 	//文字の大きさを変える
 	private void ChangeScale(float value) {
-		this.transform.localScale = new Vector3(value, value, value);
+		stageCount.transform.localScale = new Vector3(value, value, value);
 	}
 }

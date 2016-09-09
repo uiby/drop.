@@ -1,22 +1,15 @@
 fileFormatVersion: 2
-guid: 3179316b72efb67419a32750a4bf07be
-timeCreated: 1473077288
+guid: f4f70a18f1e7e304ab33c2f09ff56835
+timeCreated: 1473347574
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: "\u5186\u67F1"
-    100004: "\u5186\u67F1_1"
     400000: //RootNode
-    400002: "\u5186\u67F1"
-    400004: "\u5186\u67F1_1"
-    2300000: "\u5186\u67F1"
-    2300002: "\u5186\u67F1_1"
-    3300000: "\u5186\u67F1"
-    3300002: "\u5186\u67F1_1"
-    4300000: "\u5186\u67F1"
-    4300002: "\u5186\u67F1_1"
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: "\u30D6\u30FC\u30EB"
     9500000: //RootNode
   materials:
     importMaterials: 1

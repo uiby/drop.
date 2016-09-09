@@ -2,11 +2,14 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class TimeCountDown : MonoBehaviour {
-	private float maxTime = 60.0f;
-	private float time;
-	private Image timeGauge;
-	private Text timeCount;
+//生命力ゲージの処理
+public class VitalityGauge : MonoBehaviour {
+	private Image vitalityGauge;
+	private Text vitalityCount;
+	private GameObject particle;
+
+	//private float vitalityGauge;
+	//private float maxVitalityGauge;
 
 	//状態定数
 	enum eState {
@@ -19,12 +22,13 @@ public class TimeCountDown : MonoBehaviour {
 	eState _state = eState.EARLY;
 
 	void Start () {
-		time = maxTime;
-		timeGauge = this.GetComponent<Image>();
-		timeCount = this.transform.FindChild("TimeCount").gameObject.GetComponent<Text>();
+		vitalityGauge = this.GetComponent<Image>();
+		vitalityCount = this.transform.FindChild("TimeCount").gameObject.GetComponent<Text>();
 
-		timeGauge.enabled = false;
-		timeCount.enabled = false;
+		vitalityCount.text = "0";
+
+		vitalityGauge.enabled = false;
+		vitalityCount.enabled = false;
 
 		SetGaugeColor(new Color32(202, 13, 255, 255));
 	  SetNumberColor(new Color32(0, 0, 0, 255));
@@ -32,21 +36,16 @@ public class TimeCountDown : MonoBehaviour {
 	
 	void Update () {
 		switch (GameManager.state) {
-			case GameManager.GameState.Title : break;
 			case GameManager.GameState.GameMain : 
 			  if (_state == eState.END) return ; 
-				float sub = Time.deltaTime;
-				time -= sub;
-				timeGauge.fillAmount = time / maxTime;
-				timeCount.text = ""+(int)time;
-				ChangeColor();
+				//ChangeColor();
 				break;
 			case GameManager.GameState.Finish : break;
 		}
 	}
 
 	private void ChangeColor() {
-		switch (_state) {
+		/*switch (_state) {
 			case eState.EARLY:
 			  if (time <= 30) {
 			    _state = eState.MIDDLE;
@@ -66,18 +65,18 @@ public class TimeCountDown : MonoBehaviour {
 			  break;
 			case eState.END:
 			  break;
-		}
+		}*/
 	}
 
 	private void SetGaugeColor(Color32 color) {
-		timeGauge.color = color;
+		vitalityGauge.color = color;
 	}
 	private void SetNumberColor(Color32 color) {
-		timeCount.color = color;
+		vitalityCount.color = color;
 	}
 
 	public void ShowTime() {
-		timeGauge.enabled = true;
-		timeCount.enabled = true;
+		vitalityGauge.enabled = true;
+		vitalityCount.enabled = true;
 	}
 }
