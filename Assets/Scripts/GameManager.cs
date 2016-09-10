@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour {
     GameFirst = 1, //ゲーム初期画面
     GameMain,  //メインゲーム画面
     Finish,  //ゲーム終了画面
-    GameClear //ゲームクリア―
+    GameClear, //ゲームクリア―
+    GameOver //ゲームオーバー
   }
   public static GameState state;
   
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour {
 	void Update () {
     switch (state) {
       case GameState.GameFirst:
+        //説明文が機械的な説明にしかなっていない。ユーザにワクワクさせるような説明文にする必要あり.要修正．
         if (explainOrder == 1 && Timer.GetCurrentTime() > 3.0f) { //3.0秒経ったら
           mainCanvas.SetMassage("<color=red>両手</color>で床を動かして、\n<color=red>魂</color>を移動させます.");
           explainOrder++;
@@ -67,8 +69,7 @@ public class GameManager : MonoBehaviour {
 		StageManager.nextStage = (GameObject)Resources.Load("Stages/stage_ver0.2");
 		StageManager.CreateFirstStage();
    	GameObject.Find("MainCamera").GetComponent<MainCamera>().DownPos();
-   	GameObject.Find("MainCanvas/VitalityGauge").GetComponent<VitalityGauge>().ShowTime();
-    mainCanvas.ShowUI();
+   	mainCanvas.ShowUI();
     Timer.StartTime();
 
     mainCanvas.DestroyMassage(); //説明文の消去

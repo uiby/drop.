@@ -9,7 +9,7 @@ public static class LeapUtil {
 	private static Controller controller = new Controller();
 
 	//手の情報の取得.
-	//<returns>手の情報。手がない場合場合は null</returns>
+	//<returns>手の情報。手がない場合場合は errorが起きるのである前提で使う必要あり.要修正</returns>
 	public static HandList GetHands() {
 		Frame frame = controller.Frame();
 	  InteractionBox interactionBox = frame.InteractionBox;

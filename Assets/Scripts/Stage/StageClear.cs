@@ -9,7 +9,17 @@ public class StageClear : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col) {
 		if (col.gameObject.tag == "Player") {
-   		  //ステージクリア時
+			  this.GetComponent<Collider>().enabled = false;
+
+			  //クリア時の評価を決める
+        StageResult.StageResultInfo result = StageResult.GetStageResult(this.name);
+
+   		  GameObject word = (GameObject)Instantiate(MainCanvas.stageClearText); //ステージクリアの評価テキストの生成
+   		  word.GetComponent<StageResultWord>().SetResultWord(result);
+
+   		  ScoreManager.AddScore(result); //スコア追加
+
+   		  //次のステージを生成, 自機の速度を0にする,このステージを捜査対象から外す
 				//Debug.Log("Clear:"+ StageManager.stageCount);
 				GameObject.Find("GameManager").GetComponent<GameManager>().StageClear();   		  
    		  this.GetComponent<ManipulateFloor>().enabled = false;
@@ -17,13 +27,12 @@ public class StageClear : MonoBehaviour {
 
    		  Instantiate(stageClearEffect, this.transform.position, Quaternion.identity);//ステージクリアのエフェクトの生成
 
-        //クリア時の評価を決める
-        StageResult.StageResultInfo result = StageResult.GetStageResult(this.name);
+   		  //自機のリプレイポジションを設定,インタバール状態に移行
+   	    Player player = col.gameObject.GetComponent<Player>();
+   	    player.SetReplayPosition(col.gameObject.transform.position);
+   	    player.SetIntervalState();
 
-   		  GameObject word = (GameObject)Instantiate(MainCanvas.stageClearText); //ステージクリアの評価テキストの生成
-   		  word.GetComponent<StageResultWord>().SetResultWord(result);
-
-   		  ScoreManager.AddScore(result); //スコア追加
+   	    Destroy(this.gameObject, 0.5f);
    	}
 	}
 }

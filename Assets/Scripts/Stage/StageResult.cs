@@ -8,7 +8,7 @@ public static class StageResult {
 	public static StageResultInfo GetStageResult(string stageName) {
 		//結果時間 = かかった時間 - 理想の時間
 		float resultTime = Timer.GetCurrentTime() - StageManager.GetIdealTime(stageName);
-
+    //Debug.Log(resultTime);
 		if (resultTime > 0 && resultTime <= 1.0f) { //1秒以内遅れる
       return StageResultInfo.Late;
 		}

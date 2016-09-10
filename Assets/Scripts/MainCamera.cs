@@ -5,6 +5,20 @@ public class MainCamera : MonoBehaviour {
 	public GameObject player;
 	public Vector3 pos;
 	public float interval = 2.0f;
+	//Margin
+	private static Camera _setCamera;
+  private static float margin = 0.2f; //マージン(画面外に出てどれくらい離れたら消えるか)を指定
+  private static float negativeMargin;
+  private static float positiveMargin;
+ 
+  void Start ()  {
+    if (_setCamera == null) {
+      _setCamera = Camera.main;
+    }
+ 
+    negativeMargin = 0 - margin;
+    positiveMargin = 1 + margin;
+  }
 	
 	public void DownPos() {
 		//differencePos : 今と次のステージの差分ベクトル
@@ -43,6 +57,17 @@ public class MainCamera : MonoBehaviour {
 			//1フレーム待ってから、while文の先頭へ戻る
 			yield return null;
 		}
-
 	}
+
+	public static bool IsOutOfScreen(Vector3 pos) {
+    Vector3 positionInScreen = _setCamera.WorldToViewportPoint(pos);
+    positionInScreen.z = pos.z;
+ 
+    if (positionInScreen.x <= negativeMargin ||
+        positionInScreen.x >= positiveMargin ||
+        positionInScreen.y <= negativeMargin ||
+        positionInScreen.y >= positiveMargin) {
+      return true;
+    } else  return false;
+  }
 }
