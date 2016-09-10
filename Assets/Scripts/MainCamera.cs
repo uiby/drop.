@@ -5,6 +5,7 @@ public class MainCamera : MonoBehaviour {
 	public GameObject player;
 	public Vector3 pos;
 	public float interval = 2.0f;
+	private static bool isLookPlayer; //魂を見るかどうか
 	//Margin
 	private static Camera _setCamera;
   private static float margin = 0.2f; //マージン(画面外に出てどれくらい離れたら消えるか)を指定
@@ -18,6 +19,11 @@ public class MainCamera : MonoBehaviour {
  
     negativeMargin = 0 - margin;
     positiveMargin = 1 + margin;
+  }
+  void Update() {
+  	if (isLookPlayer) {
+  		 transform.LookAt(player.transform); //カメラがプレイヤーに常に向く
+  	}
   }
 	
 	public void DownPos() {
@@ -69,5 +75,9 @@ public class MainCamera : MonoBehaviour {
         positionInScreen.y >= positiveMargin) {
       return true;
     } else  return false;
+  }
+
+  public static void SetIsLookPlayer(bool judge) {
+  	isLookPlayer = judge;
   }
 }

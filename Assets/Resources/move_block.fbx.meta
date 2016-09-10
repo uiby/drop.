@@ -1,27 +1,37 @@
 fileFormatVersion: 2
-guid: 82efe8bc5f9d23449b7a75c2c0b20bc4
-timeCreated: 1473347574
+guid: 32dbb0d83a3ee5d43893042c407d08dd
+timeCreated: 1473515197
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: floor
-    100002: //RootNode
-    100004: "\u30AD\u30E3\u30C3\u30D7_1"
-    100006: "\u30AD\u30E3\u30C3\u30D7_2"
-    400000: floor
-    400002: //RootNode
-    400004: "\u30AD\u30E3\u30C3\u30D7_1"
-    400006: "\u30AD\u30E3\u30C3\u30D7_2"
-    2300000: floor
-    2300002: "\u30AD\u30E3\u30C3\u30D7_1"
-    2300004: "\u30AD\u30E3\u30C3\u30D7_2"
-    3300000: floor
-    3300002: "\u30AD\u30E3\u30C3\u30D7_1"
-    3300004: "\u30AD\u30E3\u30C3\u30D7_2"
-    4300000: floor
-    4300002: "\u30AD\u30E3\u30C3\u30D7_1"
-    4300004: "\u30AD\u30E3\u30C3\u30D7_2"
+    100000: block
+    100002: bool
+    100004: bool_2
+    100006: floor
+    100008: hall
+    100010: //RootNode
+    100012: rail
+    400000: block
+    400002: bool
+    400004: bool_2
+    400006: floor
+    400008: hall
+    400010: //RootNode
+    400012: rail
+    2300000: block
+    2300002: floor
+    2300004: hall
+    2300006: rail
+    3300000: block
+    3300002: floor
+    3300004: hall
+    3300006: rail
+    4300000: block
+    4300002: rail
+    4300004: floor
+    4300006: hall
+    7400000: ___
     9500000: //RootNode
   materials:
     importMaterials: 1

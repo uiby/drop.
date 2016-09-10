@@ -20,16 +20,24 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GameManager.state == GameManager.GameState.GameClear || GameManager.state == GameManager.GameState.GameOver) return;
+		//transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time,1), transform.position.z);
+    
+    if (GameManager.state == GameManager.GameState.GameOver) return;
 		if (isInterval) return;
 		if (!MainCamera.IsOutOfScreen(transform.position)) return;
+    
+    //~~~自機がフレームアウトした場合の処理~~~//
+    if (GameManager.state == GameManager.GameState.GameClear) {//ゲームクリア―の場合
+    	GameResult.PreparePosition();
+    	return ;
+    }
 
-		DecreaseLife(); //残機を一つ減らす
+ 		DecreaseLife(); //残機を一つ減らす
 		Debug.Log(life);
 		if (IsGameOver()) { //ライフが0の場合
 			GameManager.state = GameManager.GameState.GameOver; //ゲームオーバーの状態に変更
 			//***ここにゲームオーバーになった瞬間にやりたい処理を入れる***//
-			Debug.Log("No Life No Play.");
+			GameResult.PreparePosition();
 			//********************************************//
 			return ;
 		}

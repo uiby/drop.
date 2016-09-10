@@ -12,7 +12,7 @@ public class StageClear : MonoBehaviour {
 			  this.GetComponent<Collider>().enabled = false;
 
 			  //クリア時の評価を決める
-        StageResult.StageResultInfo result = StageResult.GetStageResult(this.name);
+           StageResult.StageResultInfo result = StageResult.GetStageResult(this.name);
 
    		  GameObject word = (GameObject)Instantiate(MainCanvas.stageClearText); //ステージクリアの評価テキストの生成
    		  word.GetComponent<StageResultWord>().SetResultWord(result);
@@ -30,7 +30,8 @@ public class StageClear : MonoBehaviour {
    		  //自機のリプレイポジションを設定,インタバール状態に移行
    	    Player player = col.gameObject.GetComponent<Player>();
    	    player.SetReplayPosition(col.gameObject.transform.position);
-   	    player.SetIntervalState();
+          if (GameManager.state != GameManager.GameState.GameClear) //ゲームクリア―でない場合
+   	      player.SetIntervalState();
 
    	    Destroy(this.gameObject, 0.5f);
    	}

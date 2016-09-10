@@ -40,7 +40,6 @@ public class VitalityGauge : MonoBehaviour {
 			  if (_state == eState.END) return ; 
 				//ChangeColor();
 				break;
-			case GameManager.GameState.Finish : break;
 		}
 	}
 

@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour {
   {
     GameFirst = 1, //ゲーム初期画面
     GameMain,  //メインゲーム画面
-    Finish,  //ゲーム終了画面
     GameClear, //ゲームクリア―
     GameOver //ゲームオーバー
   }
@@ -80,8 +79,8 @@ public class GameManager : MonoBehaviour {
     Timer.ShowLogNowTime(); //ステージクリアにかかった時間をログに表示
     Timer.FinishTime(); //タイマーのリセット
     if (StageManager.stageCount == StageManager.GetMaxStageCount()) {
-      state = GameState.GameClear;
       GameClear();
+      return ;
     }
 		StageManager.nextStage = StageManager.SelectStage();
 		StageManager.CreateNextStage();
@@ -90,7 +89,8 @@ public class GameManager : MonoBehaviour {
    	backGround.ChangeColor(new Color(Random.value, Random.value, Random.value, 1.0f));
 	}
 
+  //ゲームクリアーのフラグが経った瞬間に一度だけ呼ばれる
   public void GameClear() {
-    Debug.Log("GameClear");
+    state = GameState.GameClear;
   }
 }

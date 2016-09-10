@@ -27,11 +27,11 @@ public class ComboSystem : MonoBehaviour {
 		comboNum++;
 		if (maxCombo < comboNum)  maxCombo = comboNum;
 		if (comboNum == 1)  return ;
-		ShowStr();
+		ShowComboCount();
 		//Debug.Log("combo:" + comboNum);
 	}
 
-	//コンボの設定
+	//コンボのリセット
 	public static void ResetCombo() {
 		comboNum = 0;
 		//Debug.Log("combo:" + comboNum);
@@ -39,7 +39,7 @@ public class ComboSystem : MonoBehaviour {
 	}
 
   //コンボ数の表示
-	private static void ShowStr() {
+	private static void ShowComboCount() {
 		comboText.GetComponent<Text>().text = "" + comboNum;
 	}
 
