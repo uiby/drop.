@@ -7,7 +7,7 @@ public class StageManager : MonoBehaviour {
   public static GameObject nextStage;
   public static int stageCount;
   private static int maxStageCount;
-  public static float stageInterval = 5.0f;
+  public static float stageInterval = 7.0f;
 
   public static int GetMaxStageCount() {
   	return maxStageCount;

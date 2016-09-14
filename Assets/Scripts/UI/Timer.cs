@@ -7,7 +7,7 @@ public class Timer : MonoBehaviour {
 	private static float time = 0;
 	private static bool isBegin = false;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		time = 0;
 		isBegin = false;
 		text = this.GetComponent<Text>();

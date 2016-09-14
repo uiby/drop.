@@ -35,7 +35,7 @@ public class Sentence : MonoBehaviour {
 			  if (canBig)  timer += Time.deltaTime;
 			  else timer -= Time.deltaTime;
 			  if (timer > 1.0f)  ChangeScale(timer);
-			  if (timer >= 1.1f || timer <= 0) canBig = !canBig;
+			  if ((timer >= 1.1f && canBig) || (timer <= 0 && !canBig)) canBig = !canBig;
 			break;
 			case eState.Vanish: 
 				SetOpacity(timer - Time.deltaTime);

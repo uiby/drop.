@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour {
       case GameState.GameFirst:
         //説明文が機械的な説明にしかなっていない。ユーザにワクワクさせるような説明文にする必要あり.要修正．
         if (explainOrder == 1 && Timer.GetCurrentTime() > 3.0f) { //3.0秒経ったら
-          mainCanvas.SetMassage("<color=red>両手</color>で床を動かして、\n<color=red>魂</color>を移動させます.");
+          mainCanvas.SetMassage("<color=red>片手</color>で床を動かして、\n<color=red>魂</color>を移動させます.");
           explainOrder++;
           Timer.ReStart();
         } else if (explainOrder == 2 && Timer.GetCurrentTime() > 3.0f) { //3.0秒経ったら
@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour {
           mainCanvas.SetMassage("では楽しんでいってください!\n穴に入れるとゲームスタートです.");
           explainOrder++;
           Timer.FinishTime();
+          GameObject.Find("Player").GetComponent<Rigidbody>().useGravity = true;
         }
       break;
     }
@@ -69,7 +70,7 @@ public class GameManager : MonoBehaviour {
 		StageManager.CreateFirstStage();
    	GameObject.Find("MainCamera").GetComponent<MainCamera>().DownPos();
    	mainCanvas.ShowUI();
-    Timer.StartTime();
+    Timer.FinishTime(); //タイマーのリセット
 
     mainCanvas.DestroyMassage(); //説明文の消去
   }

@@ -7,15 +7,18 @@ public class Player : MonoBehaviour {
 	public float maxSpeed = 30.0f;
 	private Rigidbody myRigidbody;
 	private int life; //残機
+  private int maxLife;
 	private Vector3 replayPosition; //残機が1つ減った時のリプレイ場所
 	private bool isInterval; //ステージ間の間かどうか
 
 	// Use this for initialization
 	void Start () {
-		isInterval = false;
-		SetReplayPosition(new Vector3(0, 3, 0));
-		life = 3;
+		isInterval = true;
+		SetReplayPosition(new Vector3(0, 5, 0));
+    maxLife = 3;
+		life = 2;
 		myRigidbody = this.GetComponent<Rigidbody>();
+    GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().ChangeUI(life);
 	}
 	
 	// Update is called once per frame
@@ -33,7 +36,7 @@ public class Player : MonoBehaviour {
     }
 
  		DecreaseLife(); //残機を一つ減らす
-		Debug.Log(life);
+		//Debug.Log(life);
 		if (IsGameOver()) { //ライフが0の場合
 			GameManager.state = GameManager.GameState.GameOver; //ゲームオーバーの状態に変更
 			//***ここにゲームオーバーになった瞬間にやりたい処理を入れる***//
@@ -63,13 +66,27 @@ public class Player : MonoBehaviour {
 
   //ライフがなくなってゲームオーバーかどうか判断
   private bool IsGameOver() {
-    if(life <= 0) return true;
+    if(life < 0) return true;
     return false;
   }
 
   //ライフを1つ減らす
   private void DecreaseLife() {
   	life--;
+    if (life < 0) {
+      life = -1;
+      //TODO 残機が0の時のエフェクト処理
+      return;
+    }
+    GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().ChangeUI(life);
+    GameObject.Find("MainCanvas/VitalityGauge").GetComponent<VitalityGauge>().ChangeAmount(life);
+  }
+  //ライフを1つ増やす
+  private void IncreaseLife() {
+    life++;
+    if (life >= maxLife) life = maxLife - 1;
+    GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().ChangeUI(life);
+    GameObject.Find("MainCanvas/VitalityGauge").GetComponent<VitalityGauge>().ChangeAmount(life);
   }
 
   //リプレイポジションを格納
@@ -80,5 +97,10 @@ public class Player : MonoBehaviour {
   //ステージ間のインターバルであると設定
   public void SetIntervalState() {
   	isInterval = true;
+  }
+
+  public void ChangeColor(Gradient gradient) {
+    var color = this.GetComponent<ParticleSystem>().colorOverLifetime;
+    color.color = new ParticleSystem.MinMaxGradient(gradient);
   }
 }

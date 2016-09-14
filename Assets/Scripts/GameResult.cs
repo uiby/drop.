@@ -7,6 +7,50 @@ using System.Collections;
 //数秒後エフェクト共に画面を隠し、生まれ変わる.
 //生まれ変わる生き物はスコアによって異なる
 public class GameResult : MonoBehaviour {
+	public ParticleSystem[] particleSystem; //演出に使うパーティクル
+	private static bool canPlay;//リザルトの演出をしていいかどうか
+	private float timer;
+	private enum eState : int {
+  	None,
+    First = 1, //ゲーム初期画面
+    Second,  //メインゲーム画面
+    Third //ゲームクリア―
+  }
+  private static eState state;
+
+	void Start() {
+		state = eState.None;
+		canPlay = false;
+		timer = 0;
+	}
+
+	void Update() {
+		if (!canPlay) return;
+
+		//時間で演出を制御
+		switch (state) {
+			case eState.First: 
+			  timer += Time.deltaTime;
+			  if (timer >= 1.0f) { //1.0秒経ったら
+			  	particleSystem[0].Play();
+			  	particleSystem[1].Play();
+			  	timer = 0;
+			  	state = eState.Second;
+			  	HideSoul();
+			  }
+			break;
+			case eState.Second: 
+			  timer += Time.deltaTime;
+			  if (timer >= 0.6f) {
+			  	BornCreature();
+			    particleSystem[2].Play();
+			    state = eState.Third;
+			  }
+			break;
+			case eState.Third: 
+			break;
+		}
+	}
 
   //カメラと魂を規定の位置にセット
 	public static void PreparePosition() {
@@ -30,13 +74,19 @@ public class GameResult : MonoBehaviour {
 			  Debug.Log("No Life No Play.");
 			break;
 		}
-		BornCreature();
+		canPlay = true;
+		state = eState.First;
 	}
 
+  //魂を隠す
+  private void HideSoul() {
+  	GameObject.Find("Player").GetComponent<Renderer>().enabled = false;
+		GameObject.Find("Player").GetComponent<ParticleSystem>().Stop();
+  }
   //生き物の生成
-	public static void BornCreature() {
+	private void BornCreature() {
 		Instantiate(GetCharactor(), GameObject.Find("Player").transform.position, Quaternion.identity);
-		GameObject.Find("Player").GetComponent<Renderer>().enabled = false;
+		
 	}
 
 	//スコアによって結果が違う

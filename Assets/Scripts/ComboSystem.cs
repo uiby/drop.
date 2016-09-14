@@ -5,13 +5,18 @@ using System.Collections;
 //コンボ処理
 //niceを2連続以上でコンボ発動
 public class ComboSystem : MonoBehaviour {
+	public ParticleSystem particleSystem;
 	private static int comboNum;
-	private static GameObject comboText;
+	private static GameObject comboCount;
+	private static GameObject comboName;
+	private static Animator animator;
 	private static int maxCombo;
 
 	// Use this for initialization
 	void Start () {
-		comboText = GameObject.Find("MainCanvas/ComboName/ComboCount");
+		comboCount = GameObject.Find("MainCanvas/ComboName/ComboCount");
+		comboName = GameObject.Find("MainCanvas/ComboName");
+		animator = this.GetComponent<Animator>();
 		Init();
 	}
 	
@@ -19,15 +24,20 @@ public class ComboSystem : MonoBehaviour {
 	public static void Init() {
 		maxCombo = 0;
 		comboNum = 0;
-		comboText.GetComponent<Text>().text = "" + comboNum;
+		comboCount.GetComponent<Text>().text = "" + comboNum;
+		HideCombo();
 	}
 
   //コンボ数を1上げる
+  //StageResultWordスクリプトで使用
 	public static void AddCombo() {
 		comboNum++;
 		if (maxCombo < comboNum)  maxCombo = comboNum;
-		if (comboNum == 1)  return ;
+		if (comboNum == 2) {
+			ShowCombo();
+		}
 		ShowComboCount();
+		if (comboNum >= 2) animator.SetTrigger("CountUp");
 		//Debug.Log("combo:" + comboNum);
 	}
 
@@ -35,12 +45,24 @@ public class ComboSystem : MonoBehaviour {
 	public static void ResetCombo() {
 		comboNum = 0;
 		//Debug.Log("combo:" + comboNum);
-		comboText.GetComponent<Text>().text = "" + comboNum;
+		comboCount.GetComponent<Text>().text = "" + comboNum;
+		HideCombo();
 	}
 
   //コンボ数の表示
 	private static void ShowComboCount() {
-		comboText.GetComponent<Text>().text = "" + comboNum;
+		comboCount.GetComponent<Text>().text = "" + comboNum;
+	}
+	private static void ShowComboName() {
+		comboName.GetComponent<Text>().enabled = true;
+	}
+	public static void HideCombo() {
+		comboCount.GetComponent<Text>().enabled = false;
+		comboName.GetComponent<Text>().enabled = false;
+	}
+	private static void ShowCombo() {
+		comboCount.GetComponent<Text>().enabled = true;
+		comboName.GetComponent<Text>().enabled = true;
 	}
 
 	//コンボに応じた倍率を返す
@@ -63,5 +85,16 @@ public class ComboSystem : MonoBehaviour {
   //最大コンボ数を返す
 	public static int GetMaxCombo() {
 		return maxCombo;
+	}
+
+  //エフェクトの演出
+	public void PlayEffect() {
+		particleSystem.Emit(100);
+		/*Color color = particleSystem.startColor;
+		for (int i = 0; i < 25; i++) {
+  		color = new Color(Random.value, Random.value, Random.value, 1.0f);
+	  	particleSystem.startColor = color;
+		  particleSystem.Emit(4);
+		}*/
 	}
 }

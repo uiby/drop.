@@ -5,6 +5,7 @@ using Leap;
 
 //床をLeapで操作する
 //ManipulateFloorはもっと似合う名前があるはずなので要修正.
+//FIXME y軸だけLeapでの操作対象から外して欲しい
 public class ManipulateFloor : MonoBehaviour {
 	private int rollY;
 	public bool isOneHand;
@@ -63,7 +64,8 @@ public class ManipulateFloor : MonoBehaviour {
 		angle.y = 0;
 		angle.x = value;
 
-		  Vector3 rotate = Camera.main.transform.TransformDirection(ToVector3(angle)); //カメラから見たベクトルに変換
-		  this.transform.rotation = Quaternion.Euler(rotate);
+		Vector3 rotate = Camera.main.transform.TransformDirection(ToVector3(angle)); //カメラから見たベクトルに変換
+
+		this.transform.rotation = Quaternion.Euler(rotate.x , this.transform.rotation.y, rotate.z);
 	}
 }

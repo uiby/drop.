@@ -7,7 +7,6 @@ public class MainCanvas : MonoBehaviour {
 	protected Text score;
 	private StageWord stageWord;
 	public Text[] stageWords; //ステージに関するテキスト集
-	public Text[] comboWords; //コンボに関するテキスト集
 	public GameObject massage; //ゲーム始まる前の軽い説明文
 	void Start () {
 	  stageClearText = (GameObject)Resources.Load("UIs/StageResultWord");
@@ -24,15 +23,19 @@ public class MainCanvas : MonoBehaviour {
   //メインゲームの時に使うUIを非表示
 	public void HideUI() {
 		score.enabled = false;
-		this.transform.FindChild("ScoreName").gameObject.GetComponent<Text>().enabled = false;
+		GameObject.Find("MainCanvas/ScoreName").GetComponent<Text>().enabled = false;
+		ComboSystem.HideCombo();
+		GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().Stop();
+		this.transform.FindChild("VitalityGauge").gameObject.GetComponent<VitalityGauge>().HideImage();
 		for (int i = 0; i < stageWords.Length; i++)	stageWords[i].enabled = false;
-		for (int i = 0; i < comboWords.Length; i++) comboWords[i].enabled = false;
 	}
+
 	public void ShowUI() {
 		score.enabled = true;
-		this.transform.FindChild("ScoreName").gameObject.GetComponent<Text>().enabled = true;
+		GameObject.Find("MainCanvas/ScoreName").GetComponent<Text>().enabled = true;
+		GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().Play();
+		this.transform.FindChild("VitalityGauge").gameObject.GetComponent<VitalityGauge>().ShowImage();
 		for (int i = 0; i < stageWords.Length; i++)	stageWords[i].enabled = true;
-		for (int i = 0; i < comboWords.Length; i++) comboWords[i].enabled = true;
 	}
 
   //ステージ名の表示
