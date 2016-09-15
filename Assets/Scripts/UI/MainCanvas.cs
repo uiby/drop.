@@ -31,6 +31,7 @@ public class MainCanvas : MonoBehaviour {
 	}
 
 	public void ShowUI() {
+		StartCoroutine("FadeIn");
 		score.enabled = true;
 		GameObject.Find("MainCanvas/ScoreName").GetComponent<Text>().enabled = true;
 		GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().Play();
@@ -50,5 +51,30 @@ public class MainCanvas : MonoBehaviour {
 	//説明文を削除
 	public void DestroyMassage() {
 		Destroy(massage.gameObject);
+	}
+
+	IEnumerator FadeIn() {
+		int frame = 0;
+		float value = 0;
+		Text scoreName = GameObject.Find("MainCanvas/ScoreName").GetComponent<Text>();
+		while (frame <= 10) {
+			SetOpacity(value, scoreName);
+			SetOpacity(value, score);
+
+			for (int i = 0; i < stageWords.Length; i++)  SetOpacity(value, stageWords[i]);
+			frame++;
+			value += 0.1f;
+
+			//2フレーム休む
+			yield return null;
+			yield return null;
+		}
+	}
+
+	//不透明度だけを変えて返す
+	private void SetOpacity(float value, Text text) {
+		Color color = text.color;
+		color.a = value;
+		text.color = color;
 	}
 }
