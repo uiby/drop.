@@ -13,6 +13,8 @@ public class MainCamera : MonoBehaviour {
   private static float positiveMargin;
  
   void Start ()  {
+  	Init ();
+
     if (_setCamera == null) {
       _setCamera = Camera.main;
     }
@@ -24,6 +26,12 @@ public class MainCamera : MonoBehaviour {
   	if (isLookPlayer) {
   		 transform.LookAt(player.transform); //カメラがプレイヤーに常に向く
   	}
+  }
+
+  //初期化
+  private void Init () {
+  	isLookPlayer = false;
+  	SetFirstPos();
   }
 	
 	public void DownPos() {
@@ -38,7 +46,8 @@ public class MainCamera : MonoBehaviour {
 
   //ゲームスタート時のカメラポジションを整える(0, 2, -7) x:20度
 	public void SetFirstPos() {
-
+		this.transform.position = new Vector3(0, 3, -7);
+		this.transform.rotation = Quaternion.Euler(30, 0, 0);
 	}
 
 	//現在地から目的地(引数end)へ移動するためのメソッド

@@ -33,7 +33,7 @@ public class StageManager : MonoBehaviour {
 		//Debug.Log("nextPos:" + nextPos);
 
 		GameObject obj = (GameObject)Instantiate(StageManager.nextStage, nextPos, Quaternion.identity);
-		obj.name = "Stage";
+		//obj.name = "Stage";
 		obj.transform.SetParent(GameObject.Find("Stages").transform);
 		obj.transform.Rotate(-2,0,0);
 		//RandomRoll(obj);  穴の位置をランダムにする。あとで実装
@@ -47,7 +47,7 @@ public class StageManager : MonoBehaviour {
 		Debug.Log("nextPos:" + nextPos);
 
 		GameObject obj = (GameObject)Instantiate(StageManager.nextStage, nextPos, Quaternion.identity);
-		obj.name = "Stage";
+		//obj.name = "Stage";
 		obj.transform.SetParent(GameObject.Find("Stages").transform);
 		obj.transform.Rotate(-2,0,0);
 
@@ -55,8 +55,26 @@ public class StageManager : MonoBehaviour {
 		nowStage = obj;
 	}
 
+  //ステージの選択
 	public static GameObject SelectStage() {
-		return (GameObject)Resources.Load("Stages/stage_ver0.2");
+		GameObject stage = null;
+		switch (stageCount) {
+			case 0: stage = (GameObject)Resources.Load("Stages/Stage00"); break;
+			case 1: stage = (GameObject)Resources.Load("Stages/Stage01"); break;
+			case 2: stage = (GameObject)Resources.Load("Stages/Stage02"); break;
+			case 3: stage = (GameObject)Resources.Load("Stages/Stage03"); break;
+			case 4: stage = (GameObject)Resources.Load("Stages/Stage04"); break;
+			case 5: stage = (GameObject)Resources.Load("Stages/Stage05"); break;
+			case 6: stage = (GameObject)Resources.Load("Stages/Stage06"); break;
+			case 7: stage = (GameObject)Resources.Load("Stages/Stage07"); break;
+			case 8: stage = (GameObject)Resources.Load("Stages/Stage08"); break;
+			case 9: stage = (GameObject)Resources.Load("Stages/Stage09"); break;
+			case 10: stage = (GameObject)Resources.Load("Stages/Stage10"); break;
+			case 11: stage = (GameObject)Resources.Load("Stages/Stage11"); break;
+			case 12: stage = (GameObject)Resources.Load("Stages/Stage12"); break;
+		}
+
+		return stage;
 	}
 
 	private static void RandomRoll(GameObject obj) {
@@ -70,7 +88,19 @@ public class StageManager : MonoBehaviour {
 	public static float GetIdealTime(string name) {
 		float idealTime = 2.5f;
 		switch (name) {
-			case "stage_ver0.2(Clone)" : break;
+			case "Stage00(Clone)" : break;
+			case "Stage01(Clone)" : break;
+			case "Stage02(Clone)" : break;
+			case "Stage03(Clone)" : break;
+			case "Stage04(Clone)" : break;
+			case "Stage05(Clone)" : break;
+			case "Stage06(Clone)" : break;
+			case "Stage07(Clone)" : break;
+			case "Stage08(Clone)" : break;
+			case "Stage09(Clone)" : break;
+			case "Stage10(Clone)" : break;
+			case "Stage11(Clone)" : break;
+			case "Stage12(Clone)" : break;
 		}
 
 		return idealTime;

@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 //using System;
 
+//メインシーンゲームマネージャ
+//デバッグ作業としてGameOver or GameClear の時にEnterキーでリスタート
 public class GameManager : MonoBehaviour {
   private MainCanvas mainCanvas;
   private BackGround backGround;
@@ -20,9 +23,9 @@ public class GameManager : MonoBehaviour {
   	state = GameState.GameFirst;
   	mainCanvas = GameObject.Find("MainCanvas").GetComponent<MainCanvas>();
     backGround = GameObject.Find("MainCamera").GetComponent<BackGround>();
-  	StageManager.nowStage = GameObject.Find("stage_ver0.2");
+  	StageManager.nowStage = GameObject.Find("Stage00");
   	StageManager.stageCount = 0;
-    StageManager.SetMaxStageCount(5);
+    StageManager.SetMaxStageCount(12);
     GameObject.Find("MainCanvas/StageText").GetComponent<StageWord>().RenewStageCount();
 
     //説明文の処理
@@ -46,8 +49,8 @@ public class GameManager : MonoBehaviour {
           mainCanvas.SetMassage("途中でこのような<color=red>アイテム</color>があります.\n慣れて来たら取りに行くと<color=red>いい事</color>があるかも?");
           explainOrder++;
           Timer.ReStart();
-          GameObject.Find("stage_ver0.2/VitalityItem").GetComponent<Collider>().enabled = true;
-          GameObject.Find("stage_ver0.2/VitalityItem").GetComponent<Renderer>().enabled = true;
+          GameObject.Find("Stage00/VitalityItem").GetComponent<Collider>().enabled = true;
+          GameObject.Find("Stage00/VitalityItem").GetComponent<Renderer>().enabled = true;
         } else if (explainOrder == 4 && Timer.GetCurrentTime() > 3.0f) { //3.0秒経ったら
           mainCanvas.SetMassage("最後まで穴に入れると<color=red>ゲームクリア―</color>です.\n穴に<color=red>素早く</color>入れましょう.");
           explainOrder++;
@@ -59,6 +62,10 @@ public class GameManager : MonoBehaviour {
           GameObject.Find("Player").GetComponent<Rigidbody>().useGravity = true;
         }
       break;
+      case GameState.GameClear:
+      case GameState.GameOver:
+        if (KeyUtil.IsDownEnter()) TitleManager.ChangeMainScene();
+      break;
     }
 	
 	}
@@ -66,7 +73,7 @@ public class GameManager : MonoBehaviour {
 	//ゲームがスタートする前のステージをクリアーした時の処理
   //必要なUIを表示する
 	public void FristStageClear() {
-		StageManager.nextStage = (GameObject)Resources.Load("Stages/stage_ver0.2");
+		StageManager.nextStage = (GameObject)Resources.Load("Stages/Stage00");
 		StageManager.CreateFirstStage();
    	GameObject.Find("MainCamera").GetComponent<MainCamera>().DownPos();
    	mainCanvas.ShowUI();

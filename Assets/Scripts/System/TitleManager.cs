@@ -116,10 +116,16 @@ public class TitleManager : MonoBehaviour {
 	}
 
   //メインゲームシーンに移行
-	private void ChangeMainScene() {
+	public static void ChangeMainScene() {
 		ScreenFadeManager fadeManager = ScreenFadeManager.Instance;
 		fadeManager.FadeOut(0.5f, Color.white, ()=> {// フェードイン
 		  SceneManager.LoadScene ("Main");
+		});
+	}
+	public static void ChangeTitleScene() {
+		ScreenFadeManager fadeManager = ScreenFadeManager.Instance;
+		fadeManager.FadeOut(0.5f, Color.white, ()=> {// フェードイン
+		  SceneManager.LoadScene ("Title");
 		});
 	}
 }

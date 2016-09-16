@@ -1,37 +1,39 @@
 fileFormatVersion: 2
-guid: 32dbb0d83a3ee5d43893042c407d08dd
-timeCreated: 1473515197
+guid: ffb04476ee3f71543882fad7ca56a346
+timeCreated: 1474030258
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: block
-    100002: bool
-    100004: bool_2
-    100006: floor
-    100008: hall
-    100010: //RootNode
-    100012: rail
-    400000: block
-    400002: bool
-    400004: bool_2
-    400006: floor
-    400008: hall
-    400010: //RootNode
-    400012: rail
-    2300000: block
-    2300002: floor
+    100000: bool
+    100002: floor1
+    100004: floor2
+    100006: hall
+    100008: //RootNode
+    100010: post_1
+    100012: post_3
+    400000: bool
+    400002: floor1
+    400004: floor2
+    400006: hall
+    400008: //RootNode
+    400010: post_1
+    400012: post_3
+    2300000: floor1
+    2300002: floor2
     2300004: hall
-    2300006: rail
-    3300000: block
-    3300002: floor
+    2300006: post_1
+    2300008: post_3
+    3300000: floor1
+    3300002: floor2
     3300004: hall
-    3300006: rail
-    4300000: block
-    4300002: rail
-    4300004: floor
-    4300006: hall
-    7400000: ___
+    3300006: post_1
+    3300008: post_3
+    4300000: floor2
+    4300002: hall
+    4300004: post_3
+    4300006: post_1
+    4300008: floor1
     9500000: //RootNode
   materials:
     importMaterials: 1

@@ -24,7 +24,6 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time,1), transform.position.z);
-    
     if (GameManager.state == GameManager.GameState.GameOver) return;
 		if (isInterval) return;
 		if (!MainCamera.IsOutOfScreen(transform.position)) return;
@@ -36,7 +35,7 @@ public class Player : MonoBehaviour {
     }
 
  		DecreaseLife(); //残機を一つ減らす
-		//Debug.Log(life);
+		Debug.Log(life);
 		if (IsGameOver()) { //ライフが0の場合
 			GameManager.state = GameManager.GameState.GameOver; //ゲームオーバーの状態に変更
 			//***ここにゲームオーバーになった瞬間にやりたい処理を入れる***//
@@ -70,12 +69,12 @@ public class Player : MonoBehaviour {
   public void GetItem(Vector3 pos) {
     if (life + 1 == maxLife) {
       //TODO スコアに返還
-      GameObject.Find("Energy").GetComponent<Particle>().PlayEffect(pos, false);
+      GameObject.Find("Energy").GetComponent<Energy>().PlayEffect(pos, false);
       return;
     }
 
     //ライフ回復
-    GameObject.Find("Energy").GetComponent<Particle>().PlayEffect(pos, true);
+    GameObject.Find("Energy").GetComponent<Energy>().PlayEffect(pos, true);
   }
 
   //ライフがなくなってゲームオーバーかどうか判断

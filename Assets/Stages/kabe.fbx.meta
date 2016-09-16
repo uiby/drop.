@@ -1,15 +1,22 @@
 fileFormatVersion: 2
-guid: f4f70a18f1e7e304ab33c2f09ff56835
-timeCreated: 1473347574
+guid: acbbfc963ce9af64cb58435c7b84b172
+timeCreated: 1474030256
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: "\u30D6\u30FC\u30EB"
+    100000: hall
+    100002: ittaika
+    100004: //RootNode
+    400000: hall
+    400002: ittaika
+    400004: //RootNode
+    2300000: hall
+    2300002: ittaika
+    3300000: hall
+    3300002: ittaika
+    4300000: ittaika
+    4300002: hall
     9500000: //RootNode
   materials:
     importMaterials: 1
