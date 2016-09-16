@@ -12,5 +12,6 @@ public class VitalityItem : MonoBehaviour {
 		Debug.Log("OK");
 		this.transform.FindChild("GetEffect").GetComponent<ParticleSystem>().Emit(50);
 		Destroy(this.gameObject, 1.0f); //1秒後に消滅
+		GameObject.Find("Player").GetComponent<Player>().GetItem(this.transform.position);
 	}
 }

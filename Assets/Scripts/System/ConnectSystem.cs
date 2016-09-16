@@ -30,6 +30,7 @@ public class ConnectSystem : MonoBehaviour {
 		frame = 0;
 		now += diff;
 		lineRenderer.SetPosition(1, now);
+		this.GetComponent<Particle>().Emit(now, 30);
 		if (count == 21) {
 			particleSystem[0].transform.position = now;
 			particleSystem[0].GetComponent<ParticleSystem>().Play();

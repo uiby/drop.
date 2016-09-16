@@ -53,7 +53,7 @@ public class StageWord : MonoBehaviour {
 		stageCount.GetComponent<Text>().text = ""+ value;
 	}
 	
-	private void SetParticle() {
+	/*private void SetParticle() {
 	  //Vector3 pos = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.2f, Camera.main.nearClipPlane));
     Vector2 pos = this.GetComponent<RectTransform>().anchoredPosition;
 		Vector3 pos3 = Camera.main.ScreenToWorldPoint(new Vector2(pos.x, pos.y + Screen.height));
@@ -61,7 +61,7 @@ public class StageWord : MonoBehaviour {
 		pos3.z = 0;
 		particle.transform.position = pos3;
 		particle.GetComponent<Particle>().SetPos(new Vector2(pos.x, pos.y + Screen.height));
-	}
+	}*/
 
 	//文字の大きさを変える
 	private void ChangeScale(float value) {

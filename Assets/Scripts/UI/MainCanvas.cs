@@ -25,7 +25,7 @@ public class MainCanvas : MonoBehaviour {
 		score.enabled = false;
 		GameObject.Find("MainCanvas/ScoreName").GetComponent<Text>().enabled = false;
 		ComboSystem.HideCombo();
-		GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().Stop();
+		//GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().Stop();
 		this.transform.FindChild("VitalityGauge").gameObject.GetComponent<VitalityGauge>().HideImage();
 		for (int i = 0; i < stageWords.Length; i++)	stageWords[i].enabled = false;
 	}
@@ -34,7 +34,7 @@ public class MainCanvas : MonoBehaviour {
 		StartCoroutine("FadeIn");
 		score.enabled = true;
 		GameObject.Find("MainCanvas/ScoreName").GetComponent<Text>().enabled = true;
-		GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().Play();
+		//GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().Play();
 		this.transform.FindChild("VitalityGauge").gameObject.GetComponent<VitalityGauge>().ShowImage();
 		for (int i = 0; i < stageWords.Length; i++)	stageWords[i].enabled = true;
 	}

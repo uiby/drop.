@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class BornWord : MonoBehaviour {
 	public ParticleSystem[] bornWordEffect;
 	public ParticleSystem[] finalEffect;
-  //誕生エフェクトの生成 num :0 たん :1 じょう
+	//誕生エフェクトの生成 num :0 たん :1 じょう
 	public void EmitBornWordEffect(int num) {
 		Color color = bornWordEffect[num].startColor;
 		for (int i = 0; i < 25; i++) {
@@ -19,7 +20,15 @@ public class BornWord : MonoBehaviour {
 	}
 
 	//
-	public void PlayAnimation() {
-		this.GetComponent<Animator>().SetTrigger("Show");
+	public void PlayAnimation(string result) {
+		this.GetComponent<Animator>().SetTrigger(result);
+		if (result == "Bad") this.transform.FindChild("BornWord_jou").GetComponent<Text>().text = "じ ょ う .";
+		else if (result == "Good") this.transform.FindChild("BornWord_jou").GetComponent<Text>().text = "じ ょ う !";
+		if (result == "Excellent") this.transform.FindChild("BornWord_jou").GetComponent<Text>().text = "じ ょ う !!";
+	}
+
+	public bool IsFinishAnimation() {
+		if (this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f) return true;
+		return false;
 	}
 }

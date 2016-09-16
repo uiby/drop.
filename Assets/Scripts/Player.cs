@@ -16,7 +16,7 @@ public class Player : MonoBehaviour {
 		isInterval = true;
 		SetReplayPosition(new Vector3(0, 5, 0));
     maxLife = 3;
-		life = 2;
+		life = 1;
 		myRigidbody = this.GetComponent<Rigidbody>();
     GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().ChangeUI(life);
 	}
@@ -64,6 +64,20 @@ public class Player : MonoBehaviour {
   	}
   }
 
+  //アイテムを取った時の処理
+  //ライフが満タンでない場合はライフを1回復
+  //満タンの場合、スコアに返還
+  public void GetItem(Vector3 pos) {
+    if (life + 1 == maxLife) {
+      //TODO スコアに返還
+      GameObject.Find("Energy").GetComponent<Particle>().PlayEffect(pos, false);
+      return;
+    }
+
+    //ライフ回復
+    GameObject.Find("Energy").GetComponent<Particle>().PlayEffect(pos, true);
+  }
+
   //ライフがなくなってゲームオーバーかどうか判断
   private bool IsGameOver() {
     if(life < 0) return true;
@@ -82,11 +96,12 @@ public class Player : MonoBehaviour {
     GameObject.Find("MainCanvas/VitalityGauge").GetComponent<VitalityGauge>().ChangeAmount(life);
   }
   //ライフを1つ増やす
-  private void IncreaseLife() {
+  public void IncreaseLife() {
     life++;
     if (life >= maxLife) life = maxLife - 1;
     GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().ChangeUI(life);
     GameObject.Find("MainCanvas/VitalityGauge").GetComponent<VitalityGauge>().ChangeAmount(life);
+
   }
 
   //リプレイポジションを格納
