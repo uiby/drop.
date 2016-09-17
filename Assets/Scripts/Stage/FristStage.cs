@@ -25,6 +25,9 @@ public class FristStage : MonoBehaviour {
    	    player.SetReplayPosition(col.gameObject.transform.position);
    	    player.SetIntervalState();
 
+          //最初のステージのみ次のステージのタイムリミットをここで表示する
+          TimeLimit.Renewal();
+
    	    Destroy(this.gameObject, 0.5f);
    	}
 	}

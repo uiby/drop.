@@ -17,6 +17,14 @@ public static class StageResult {
 		return StageResultInfo.Excellent;
 	}
 
+	public static StageResultInfo GetStageResult() {
+		float result = TimeLimit.GetCurrentTime();
+		if (result >= 0) {
+			return StageResultInfo.Excellent;
+		} else //if (result < 0) {
+			return StageResultInfo.Late;
+	}
+
 	//touch情報
   public enum StageResultInfo {
 	  //touchなし

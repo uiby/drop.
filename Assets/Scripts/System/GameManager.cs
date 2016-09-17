@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour {
     backGround = GameObject.Find("MainCamera").GetComponent<BackGround>();
   	StageManager.nowStage = GameObject.Find("Stage00");
   	StageManager.stageCount = 0;
-    StageManager.SetMaxStageCount(12);
+    StageManager.SetMaxStageCount(13);
     GameObject.Find("MainCanvas/StageText").GetComponent<StageWord>().RenewStageCount();
 
     //説明文の処理
@@ -74,27 +74,33 @@ public class GameManager : MonoBehaviour {
   //必要なUIを表示する
 	public void FristStageClear() {
 		StageManager.nextStage = (GameObject)Resources.Load("Stages/Stage00");
-		StageManager.CreateFirstStage();
+		StageManager.CreateFirstStage(); //ステージの更新
    	GameObject.Find("MainCamera").GetComponent<MainCamera>().DownPos();
    	mainCanvas.ShowUI();
-    Timer.FinishTime(); //タイマーのリセット
+    Timer.FinishTime();
+    TimeLimit.FinishCountDown(); //制限時間のストップ
+
+    //カウントダウンのセット
+    TimeLimit.SetTimer(StageManager.GetIdealTime(StageManager.nowStage.name));
 
     mainCanvas.DestroyMassage(); //説明文の消去
   }
 
 	public void StageClear() {
     StageManager.IncreaseStageCount();
-    Timer.ShowLogNowTime(); //ステージクリアにかかった時間をログに表示
-    Timer.FinishTime(); //タイマーのリセット
+    TimeLimit.FinishCountDown(); //制限時間のストップ
     if (StageManager.stageCount == StageManager.GetMaxStageCount()) {
       GameClear();
       return ;
     }
 		StageManager.nextStage = StageManager.SelectStage();
-		StageManager.CreateNextStage();
+		StageManager.CreateNextStage(); //ステージの更新
    	GameObject.Find("MainCamera").GetComponent<MainCamera>().DownPos();
    	mainCanvas.ChangeStageWord();
    	backGround.ChangeColor(new Color(Random.value, Random.value, Random.value, 1.0f));
+
+    //カウントダウンのセット
+    TimeLimit.SetTimer(StageManager.GetIdealTime(StageManager.nowStage.name));
 	}
 
   //ゲームクリアーのフラグが経った瞬間に一度だけ呼ばれる

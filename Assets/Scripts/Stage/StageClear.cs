@@ -12,10 +12,10 @@ public class StageClear : MonoBehaviour {
 			  this.GetComponent<Collider>().enabled = false;
 
 			  //クリア時の評価を決める
-        StageResult.StageResultInfo result = StageResult.GetStageResult(this.name);
-
-   		  GameObject word = (GameObject)Instantiate(MainCanvas.stageClearText); //ステージクリアの評価テキストの生成
-   		  word.GetComponent<StageResultWord>().SetResultWord(result);
+        StageResult.StageResultInfo result = StageResult.GetStageResult();
+        
+        //ステージクリアの評価
+        GameObject.Find("MainCanvas/StageResultWord").GetComponent<StageResultWord>().ShowResultWord(result);
 
    		  ScoreManager.AddScore(result); //スコア追加
 

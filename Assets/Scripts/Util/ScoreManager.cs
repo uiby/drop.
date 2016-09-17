@@ -54,9 +54,21 @@ public class ScoreManager : MonoBehaviour {
 		idealScore += value;
 
 		state = eState.CountUp;
+
+		//PlusScoreにアニメーションをするように設定
+		PlusScore.Plus(value);
 		/*GameObject temp = (GameObject)Instantiate(addScore, new Vector2(0, 0), Quaternion.identity);
 		temp.transform.SetParent(GameObject.Find("MainCanvas").transform);
 		temp.GetComponent<AddScore>().SetValue(value);*/
+	}
+
+	public static void AddScore(int value) {
+		idealScore += value;
+
+		state = eState.CountUp;
+
+		//PlusScoreにアニメーションをするように設定(ボーナスバージョン)
+		PlusScore.BonusPlus(value);
 	}
 
 	private static void ShowScore() {

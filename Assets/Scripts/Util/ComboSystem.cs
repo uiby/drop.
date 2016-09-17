@@ -5,7 +5,8 @@ using System.Collections;
 //コンボ処理
 //niceを2連続以上でコンボ発動
 public class ComboSystem : MonoBehaviour {
-	public ParticleSystem particleSystem;
+	public ParticleSystem normalParticleSystem;
+	public ParticleSystem highParticleSystem;
 	private static int comboNum;
 	private static GameObject comboCount;
 	private static GameObject comboName;
@@ -36,7 +37,7 @@ public class ComboSystem : MonoBehaviour {
 		if (comboNum == 2) {
 			ShowCombo();
 		}
-		ShowComboCount();
+		//ShowComboCount();
 		if (comboNum >= 2) animator.SetTrigger("CountUp");
 		//Debug.Log("combo:" + comboNum);
 	}
@@ -49,9 +50,10 @@ public class ComboSystem : MonoBehaviour {
 		HideCombo();
 	}
 
-  //コンボ数の表示
-	private static void ShowComboCount() {
-		comboCount.GetComponent<Text>().text = "" + comboNum;
+  //コンボ数の更新.Animationで使用
+	public void RenewalComboCount() {
+		if (comboNum > 8)  comboCount.GetComponent<Text>().text = "<color=aqua>" + comboNum + "</color>";
+		else  comboCount.GetComponent<Text>().text = "" + comboNum;
 	}
 	private static void ShowComboName() {
 		comboName.GetComponent<Text>().enabled = true;
@@ -89,11 +91,12 @@ public class ComboSystem : MonoBehaviour {
 
   //エフェクトの演出
 	public void PlayEffect() {
-		particleSystem.Emit(100);
-		/*Color color = particleSystem.startColor;
+		if (comboNum < 8)  highParticleSystem.Emit(100);
+		else  normalParticleSystem.Emit(100);
+		/*Color color = normalParticleSystem.startColor;
 		for (int i = 0; i < 25; i++) {
   		color = new Color(Random.value, Random.value, Random.value, 1.0f);
-	  	particleSystem.startColor = color;
+	  	normalParticleSystem.startColor = color;
 		  particleSystem.Emit(4);
 		}*/
 	}

@@ -33,6 +33,9 @@ public class GameResult : MonoBehaviour {
 		ResultCanvas.canPlay = true;
 		ResultCanvas.state = ResultCanvas.eState.First;
 		GetFinalResult();
+
+    //カウントダウンのストップ
+		TimeLimit.FinishCountDown();
 	}
 
   //最終結果をゲット

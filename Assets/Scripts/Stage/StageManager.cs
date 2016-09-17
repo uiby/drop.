@@ -63,7 +63,7 @@ public class StageManager : MonoBehaviour {
 			case 1: stage = (GameObject)Resources.Load("Stages/Stage01"); break;
 			case 2: stage = (GameObject)Resources.Load("Stages/Stage02"); break;
 			case 3: stage = (GameObject)Resources.Load("Stages/Stage03"); break;
-			case 4: stage = (GameObject)Resources.Load("Stages/Stage04"); break;
+			case 4: stage = (GameObject)Resources.Load("Stages/Stage12"); break;
 			case 5: stage = (GameObject)Resources.Load("Stages/Stage05"); break;
 			case 6: stage = (GameObject)Resources.Load("Stages/Stage06"); break;
 			case 7: stage = (GameObject)Resources.Load("Stages/Stage07"); break;
@@ -71,7 +71,7 @@ public class StageManager : MonoBehaviour {
 			case 9: stage = (GameObject)Resources.Load("Stages/Stage09"); break;
 			case 10: stage = (GameObject)Resources.Load("Stages/Stage10"); break;
 			case 11: stage = (GameObject)Resources.Load("Stages/Stage11"); break;
-			case 12: stage = (GameObject)Resources.Load("Stages/Stage12"); break;
+			case 12: stage = (GameObject)Resources.Load("Stages/Stage04"); break;
 		}
 
 		return stage;
@@ -85,8 +85,9 @@ public class StageManager : MonoBehaviour {
 
   //ステージごとの理想のタイムを返す
   //ステージの名前によって理想のタイムが違う
+  //指定なければ今のステージの名前が入る
 	public static float GetIdealTime(string name) {
-		float idealTime = 2.5f;
+		float idealTime = 99;
 		switch (name) {
 			case "Stage00(Clone)" : break;
 			case "Stage01(Clone)" : break;

@@ -16,7 +16,7 @@ public class Player : MonoBehaviour {
 		isInterval = true;
 		SetReplayPosition(new Vector3(0, 5, 0));
     maxLife = 3;
-		life = 1;
+		life = 2;
 		myRigidbody = this.GetComponent<Rigidbody>();
     GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().ChangeUI(life);
 	}
@@ -59,7 +59,7 @@ public class Player : MonoBehaviour {
   void OnCollisionEnter(Collision coll) {
   	if (coll.gameObject.tag == "Stage") {
   		isInterval = false;
-  		Timer.StartTime();
+  		TimeLimit.StartCountDown();
   	}
   }
 

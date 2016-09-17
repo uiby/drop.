@@ -6,30 +6,28 @@ using System.Collections;
 //生成された時に文字を決める
 //EXCELLENT > Late > Too Late の順で評価する
 public class StageResultWord : MonoBehaviour {
+	private Animator animator;
+	private TimeLimit timeLimit; 
 	private int frame;
 
 	// Use this for initialization
 	void Start () {
-		this.transform.SetParent(GameObject.Find("MainCanvas").transform);
+		animator = this.GetComponent<Animator>();
+		timeLimit = GameObject.Find("MainCanvas/TimeLimit").GetComponent<TimeLimit>();
 		this.GetComponent<Text>().enabled = false;
-		SetFristPos();
-	  this.GetComponent<Text>().enabled = true;
-	  this.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-	  frame = 20;
 	}
 
 	void Update() {
-		frame--;
-		if (frame >= 13) {
-  		Scale(0.1f);
-	 	}
-		if (frame == 0) {
-			DestroyObj();
-		}
+	}
+
+  //結果の文章を表示
+	public void ShowResultWord(StageResult.StageResultInfo result) {
+		SetResultWord(result);
+		PlayAnimation();
 	}
 
   //ステージクリア結果を文字に格納
-	public void SetResultWord(StageResult.StageResultInfo result) {
+	private void SetResultWord(StageResult.StageResultInfo result) {
 		switch (result) {
 			case StageResult.StageResultInfo.Excellent: 
 			  int combo = ComboSystem.GetCombo();
@@ -47,6 +45,10 @@ public class StageResultWord : MonoBehaviour {
 			break;
 		}
 	}
+
+	private void PlayAnimation() {
+		animator.SetTrigger("Play");
+	}
 	
   //文字の最初の位置を決める
 	private void SetFristPos() {
@@ -63,11 +65,12 @@ public class StageResultWord : MonoBehaviour {
 		Destroy(this.gameObject);
 	}
 
-	private void Scale(float value) {
-		this.transform.localScale += new Vector3(value, value, value);
-	}
-
 	private void SetText(string sentence) {
   	this.GetComponent<Text>().text = sentence;
+  }
+
+  //次のステージのタイムリミットを表示
+  public void ShowNextIdealTime() {
+  	timeLimit.Change();
   }
 }

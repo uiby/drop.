@@ -70,6 +70,7 @@ public class Energy : MonoBehaviour {
   	Emit (transPos, 50);
   	if (isLife)
     	GameObject.Find("Player").GetComponent<Player>().IncreaseLife();
-;
+    else 
+      ScoreManager.AddScore(500);
   }
 }

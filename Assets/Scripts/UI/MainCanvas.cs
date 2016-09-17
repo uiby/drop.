@@ -3,13 +3,12 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class MainCanvas : MonoBehaviour {
-	public static GameObject stageClearText;
 	protected Text score;
 	private StageWord stageWord;
 	public Text[] stageWords; //ステージに関するテキスト集
 	public GameObject massage; //ゲーム始まる前の軽い説明文
+	public GameObject[] timeLimit; //タイムリミット関連のオブジェクト集
 	void Start () {
-	  stageClearText = (GameObject)Resources.Load("UIs/StageResultWord");
 	  score = this.transform.FindChild("ScoreName/Score").gameObject.GetComponent<Text>();
 	  stageWord = this.transform.FindChild("StageText").gameObject.GetComponent<StageWord>();
 	  
@@ -28,6 +27,7 @@ public class MainCanvas : MonoBehaviour {
 		//GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().Stop();
 		this.transform.FindChild("VitalityGauge").gameObject.GetComponent<VitalityGauge>().HideImage();
 		for (int i = 0; i < stageWords.Length; i++)	stageWords[i].enabled = false;
+		timeLimit[0].GetComponent<Text>().enabled = false;
 	}
 
 	public void ShowUI() {
@@ -37,6 +37,7 @@ public class MainCanvas : MonoBehaviour {
 		//GameObject.Find("Effect/VitalityEffect").GetComponent<VitalityParticle>().Play();
 		this.transform.FindChild("VitalityGauge").gameObject.GetComponent<VitalityGauge>().ShowImage();
 		for (int i = 0; i < stageWords.Length; i++)	stageWords[i].enabled = true;
+		timeLimit[0].GetComponent<Text>().enabled = true;
 	}
 
   //ステージ名の表示
@@ -62,6 +63,9 @@ public class MainCanvas : MonoBehaviour {
 			SetOpacity(value, score);
 
 			for (int i = 0; i < stageWords.Length; i++)  SetOpacity(value, stageWords[i]);
+
+      SetOpacity(value, timeLimit[0].GetComponent<Text>());
+
 			frame++;
 			value += 0.1f;
 
